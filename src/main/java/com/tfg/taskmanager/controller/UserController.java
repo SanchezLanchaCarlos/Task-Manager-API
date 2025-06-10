@@ -52,6 +52,17 @@ public class UserController {
     public void delete(@PathVariable UUID id) {
         userService.deleteById(id);
     }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Actualiza un usuario por su ID")
+    public UserDTO update(@PathVariable UUID id, @RequestBody UserDTO dto) {
+        User user = userService.getById(id).orElseThrow(RuntimeException::new);
+        user.setUsername(dto.username());
+        user.setEmail(dto.email());
+        user.setRole(dto.role());
+
+        return UserMapper.toDTO(userService.update(user));
+    }
 }
 
 

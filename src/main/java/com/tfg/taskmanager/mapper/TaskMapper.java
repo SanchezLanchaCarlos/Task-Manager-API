@@ -13,6 +13,7 @@ public class TaskMapper {
                 task.getTitle(),
                 task.getDescription(),
                 task.getStatus(),
+                task.getPriority(),
                 task.getDueDate(),
                 task.getAssignee() != null ? task.getAssignee().getId() : null,
                 task.getProject() != null ? task.getProject().getId() : null
@@ -24,6 +25,7 @@ public class TaskMapper {
         task.setTitle(dto.title());
         task.setDescription(dto.description());
         task.setStatus(dto.status());
+        task.setPriority(dto.priority());
         task.setDueDate(dto.dueDate());
         task.setAssignee(assignee);
         task.setProject(project);

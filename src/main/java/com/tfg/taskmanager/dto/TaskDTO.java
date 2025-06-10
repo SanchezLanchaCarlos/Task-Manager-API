@@ -8,6 +8,7 @@ public record TaskDTO(
         String title,
         String description,
         String status,
+        String priority,
         LocalDate dueDate,
         UUID assigneeId,
         UUID projectId

@@ -8,7 +8,7 @@ public class ProjectMapper {
 
     public static ProjectDTO toDTO(Project project) {
         return new ProjectDTO(project.getId(), project.getName(), project.getDescription(),
-                project.getOwner() != null ? project.getOwner().getId() : null);
+                project.getOwner() != null ? project.getOwner().getId() : null, project.getCreatedAt());
     }
 
     public static Project toEntity(ProjectDTO dto, User owner) {

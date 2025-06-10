@@ -1,4 +1,6 @@
 package com.tfg.taskmanager.auth;
 
-public record AuthResponseDTO(String token) {
+import com.tfg.taskmanager.model.User;
+
+public record AuthResponseDTO(String token, User user) {
 }

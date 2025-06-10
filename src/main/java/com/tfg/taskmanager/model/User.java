@@ -29,5 +29,15 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private String avatar;
+
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @PrePersist
+    public void setAvatarIfNull() {
+        if (this.avatar == null || this.avatar.isEmpty()) {
+            int randomId = (int) (Math.random() * 70) + 1; // pravatar.io tiene imágenes de 1 a 70
+            this.avatar = "https://i.pravatar.cc/150?img=" + randomId;
+        }
+    }
 }

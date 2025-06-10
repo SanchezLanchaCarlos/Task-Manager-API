@@ -1,9 +1,14 @@
 package com.tfg.taskmanager.controller;
 
 import com.tfg.taskmanager.dto.ProjectDTO;
+import com.tfg.taskmanager.dto.ProjectMemberDTO;
 import com.tfg.taskmanager.mapper.ProjectMapper;
+import com.tfg.taskmanager.mapper.ProjectMemberMapper;
 import com.tfg.taskmanager.model.Project;
+import com.tfg.taskmanager.model.ProjectMember;
+import com.tfg.taskmanager.model.Role;
 import com.tfg.taskmanager.model.User;
+import com.tfg.taskmanager.service.ProjectMemberService;
 import com.tfg.taskmanager.service.ProjectService;
 import com.tfg.taskmanager.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,6 +31,7 @@ public class ProjectController {
 
     private final ProjectService projectService;
     private final UserService userService;
+    private final ProjectMemberService projectMemberService;
 
     @GetMapping
     @Operation(summary = "Obtiene todos los proyectos")
@@ -60,6 +67,7 @@ public class ProjectController {
         if (owner.isEmpty()) return ResponseEntity.badRequest().build();
 
         Project saved = projectService.save(ProjectMapper.toEntity(dto, owner.get()));
+        projectMemberService.save(new ProjectMember(null, owner.get(), saved, Role.OWNER));
         return ResponseEntity.ok(ProjectMapper.toDTO(saved));
     }
 

@@ -24,5 +24,6 @@ public class ProjectMember {
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

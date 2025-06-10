@@ -77,6 +77,17 @@ public class TaskController {
                 .map(TaskMapper::toDTO)
                 .toList();
     }
+
+    @GetMapping("/user/{userId}")
+    @Operation(summary = "Obtiene todas las tareas de un usuario")
+    public List<TaskDTO> getByUser(@PathVariable UUID userId) {
+        return userService.getById(userId)
+                .map(taskService::getTasksByAssignee)
+                .orElse(List.of())
+                .stream()
+                .map(TaskMapper::toDTO)
+                .toList();
+    }
 }
 
 

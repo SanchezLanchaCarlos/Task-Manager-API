@@ -3,7 +3,6 @@ package com.tfg.taskmanager.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -36,5 +35,5 @@ public class Task {
     @JoinColumn(name = "assignee_id")
     private User assignee;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDate createdAt;
 }

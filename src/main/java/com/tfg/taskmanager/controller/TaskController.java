@@ -1,6 +1,7 @@
 package com.tfg.taskmanager.controller;
 
 import com.tfg.taskmanager.dto.TaskDTO;
+import com.tfg.taskmanager.mapper.ProjectMapper;
 import com.tfg.taskmanager.mapper.TaskMapper;
 import com.tfg.taskmanager.model.Project;
 import com.tfg.taskmanager.model.Task;
@@ -87,6 +88,22 @@ public class TaskController {
                 .stream()
                 .map(TaskMapper::toDTO)
                 .toList();
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Actualiza una tarea por su ID")
+    public TaskDTO update(@PathVariable UUID id, @RequestBody TaskDTO dto) {
+        Task task = taskService.getById(id).orElseThrow(RuntimeException::new);
+        User user = userService.getById(dto.assigneeId()).orElseThrow(RuntimeException::new);
+        Project project = projectService.getById(dto.projectId()).orElseThrow(RuntimeException::new);
+        task.setStatus(dto.status());
+        task.setPriority(dto.priority());
+        task.setAssignee(user);
+        task.setDueDate(dto.dueDate());
+        task.setTitle(dto.title());
+        task.setDescription(dto.description());
+        task.setProject(project);
+        return TaskMapper.toDTO(taskService.save(task));
     }
 }
 

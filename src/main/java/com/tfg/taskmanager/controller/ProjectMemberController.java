@@ -30,7 +30,7 @@ public class ProjectMemberController {
     private final UserService userService;
 
     @GetMapping("/project/{projectId}")
-    @Operation(summary = "Obtiene los miembros de un proyecto por su ID")
+    @Operation(summary = "Obtiene los miembros de un proyecto por el ID del proyecto")
     public List<ProjectMemberDTO> getMembersByProject(@PathVariable UUID projectId) {
         return projectService.getById(projectId)
                 .map(projectMemberService::getMembersByProject)
@@ -41,7 +41,7 @@ public class ProjectMemberController {
     }
 
     @GetMapping("/user/{userId}")
-    @Operation(summary = "Obtiene los proyectos de un usuario por su ID")
+    @Operation(summary = "Obtiene el miembro de un proyecto por su ID")
     public List<ProjectMemberDTO> getMembershipsByUser(@PathVariable UUID userId) {
         return userService.getById(userId)
                 .map(projectMemberService::getMembershipsByUser)

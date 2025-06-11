@@ -11,6 +11,7 @@ public record TaskDTO(
         String priority,
         LocalDate dueDate,
         UUID assigneeId,
-        UUID projectId
+        UUID projectId,
+        LocalDate createdAt
 ) {}
 

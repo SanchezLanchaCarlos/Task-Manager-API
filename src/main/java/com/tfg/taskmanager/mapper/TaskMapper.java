@@ -16,7 +16,8 @@ public class TaskMapper {
                 task.getPriority(),
                 task.getDueDate(),
                 task.getAssignee() != null ? task.getAssignee().getId() : null,
-                task.getProject() != null ? task.getProject().getId() : null
+                task.getProject() != null ? task.getProject().getId() : null,
+                task.getCreatedAt()
         );
     }
 
@@ -29,6 +30,7 @@ public class TaskMapper {
         task.setDueDate(dto.dueDate());
         task.setAssignee(assignee);
         task.setProject(project);
+        task.setCreatedAt(dto.createdAt());
         return task;
     }
 }

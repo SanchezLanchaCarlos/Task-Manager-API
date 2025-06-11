@@ -87,5 +87,14 @@ public class ProjectController {
     public void delete(@PathVariable UUID id) {
         projectService.deleteById(id);
     }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Actualiza un proyecto por su ID")
+    public ProjectDTO update(@PathVariable UUID id, @RequestBody ProjectDTO dto) {
+        Project project = projectService.getById(id).orElseThrow(RuntimeException::new);
+        project.setName(dto.name());
+        project.setDescription(dto.description());
+        return ProjectMapper.toDTO(projectService.save(project));
+    }
 }
 
